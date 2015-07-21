@@ -8,14 +8,8 @@
 
 #import <Foundation/Foundation.h>
 #import "F4HandleProtocol.h"
-
-typedef enum {
-    WeChatSceneSession  = 0,
-    WeChatSceneTimeline = 1,
-    WeChatSceneFavorite = 2,
-}WeChatScene;
-
-@interface F4WeChatHandler : NSObject <F4HandleProtocol>
+#import "F4WeiXinBaseHandler.h"
+@interface F4WeChatHandler : F4WeiXinBaseHandler<F4HandleProtocol>
 
 - (void)load;
 

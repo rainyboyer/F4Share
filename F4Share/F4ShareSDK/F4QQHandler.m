@@ -8,7 +8,6 @@
 
 #import "F4QQHandler.h"
 #import "F4HandleEngine.h"
-#import "F4ShareMessage.h"
 #import "F4ShareUserInfo.h"
 #import "NSDictionary+URLQuery.h"
 #import <TencentOpenAPI/QQApiInterfaceObject.h>

@@ -15,6 +15,9 @@
 		1836A5931B56129300E6AF0A /* LaunchScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = 1836A5911B56129300E6AF0A /* LaunchScreen.xib */; };
 		1836A59F1B56129300E6AF0A /* F4ShareTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 1836A59E1B56129300E6AF0A /* F4ShareTests.m */; };
 		18B0F6161B5E282C00436505 /* SinaVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 18B0F6151B5E282C00436505 /* SinaVC.m */; };
+		18B0F6191B5E46D400436505 /* F4TimeLineHandler.m in Sources */ = {isa = PBXBuildFile; fileRef = 18B0F6181B5E46D400436505 /* F4TimeLineHandler.m */; };
+		18B0F61C1B5E4A2A00436505 /* F4WeiXinBaseHandler.m in Sources */ = {isa = PBXBuildFile; fileRef = 18B0F61B1B5E4A2A00436505 /* F4WeiXinBaseHandler.m */; };
+		18B0F61F1B5E4F9500436505 /* WeChatVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 18B0F61E1B5E4F9500436505 /* WeChatVC.m */; };
 		18F8EDA01B574A4A00B1FB0F /* TencentOpenApi_IOS_Bundle.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 18F8ECCB1B574A4A00B1FB0F /* TencentOpenApi_IOS_Bundle.bundle */; };
 		18F8EDB41B574DA400B1FB0F /* libiconv.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 18F8EDB31B574DA400B1FB0F /* libiconv.dylib */; };
 		18F8EDB61B574DAE00B1FB0F /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 18F8EDB51B574DAE00B1FB0F /* SystemConfiguration.framework */; };
@@ -72,6 +75,12 @@
 		186C5CED1B88EF0DF229D2F3 /* libPods.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libPods.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		18B0F6141B5E282C00436505 /* SinaVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SinaVC.h; sourceTree = "<group>"; };
 		18B0F6151B5E282C00436505 /* SinaVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SinaVC.m; sourceTree = "<group>"; };
+		18B0F6171B5E46D400436505 /* F4TimeLineHandler.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = F4TimeLineHandler.h; sourceTree = "<group>"; };
+		18B0F6181B5E46D400436505 /* F4TimeLineHandler.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = F4TimeLineHandler.m; sourceTree = "<group>"; };
+		18B0F61A1B5E4A2A00436505 /* F4WeiXinBaseHandler.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = F4WeiXinBaseHandler.h; sourceTree = "<group>"; };
+		18B0F61B1B5E4A2A00436505 /* F4WeiXinBaseHandler.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = F4WeiXinBaseHandler.m; sourceTree = "<group>"; };
+		18B0F61D1B5E4F9500436505 /* WeChatVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WeChatVC.h; sourceTree = "<group>"; };
+		18B0F61E1B5E4F9500436505 /* WeChatVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WeChatVC.m; sourceTree = "<group>"; };
 		18D833071B58A4770016DAD7 /* Singleton.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Singleton.h; path = ../Singleton.h; sourceTree = "<group>"; };
 		18F8ECCB1B574A4A00B1FB0F /* TencentOpenApi_IOS_Bundle.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = TencentOpenApi_IOS_Bundle.bundle; sourceTree = "<group>"; };
 		18F8EDB31B574DA400B1FB0F /* libiconv.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libiconv.dylib; path = usr/lib/libiconv.dylib; sourceTree = SDKROOT; };
@@ -206,6 +215,8 @@
 				18F8EDCA1B579E0900B1FB0F /* QQShareVC.m */,
 				18B0F6141B5E282C00436505 /* SinaVC.h */,
 				18B0F6151B5E282C00436505 /* SinaVC.m */,
+				18B0F61D1B5E4F9500436505 /* WeChatVC.h */,
+				18B0F61E1B5E4F9500436505 /* WeChatVC.m */,
 				1836A58C1B56129300E6AF0A /* Main.storyboard */,
 				1836A58F1B56129300E6AF0A /* Images.xcassets */,
 				1836A5911B56129300E6AF0A /* LaunchScreen.xib */,
@@ -270,8 +281,12 @@
 				947BF62C1B5CCAB2004B9521 /* F4ShareMessage.m */,
 				949C74A11B5908B3006DFA69 /* F4WeiboHandler.h */,
 				949C74A21B5908B3006DFA69 /* F4WeiboHandler.m */,
+				18B0F61A1B5E4A2A00436505 /* F4WeiXinBaseHandler.h */,
+				18B0F61B1B5E4A2A00436505 /* F4WeiXinBaseHandler.m */,
 				947BF6281B5CCA5C004B9521 /* F4WeChatHandler.h */,
 				947BF6291B5CCA5C004B9521 /* F4WeChatHandler.m */,
+				18B0F6171B5E46D400436505 /* F4TimeLineHandler.h */,
+				18B0F6181B5E46D400436505 /* F4TimeLineHandler.m */,
 				949C749E1B59021E006DFA69 /* F4ShareUserInfo.h */,
 				949C749F1B59021E006DFA69 /* F4ShareUserInfo.m */,
 				949C74C31B5909B7006DFA69 /* F4ShareHTTPTool.h */,
@@ -459,12 +474,15 @@
 			files = (
 				18F8EDCB1B579E0900B1FB0F /* QQShareVC.m in Sources */,
 				1836A58B1B56129300E6AF0A /* ViewController.m in Sources */,
+				18B0F61C1B5E4A2A00436505 /* F4WeiXinBaseHandler.m in Sources */,
 				949C749D1B58FA14006DFA69 /* NSDictionary+URLQuery.m in Sources */,
+				18B0F6191B5E46D400436505 /* F4TimeLineHandler.m in Sources */,
 				947BF6231B5CC9CA004B9521 /* F4HandleEngine.m in Sources */,
 				949C74A31B5908B3006DFA69 /* F4WeiboHandler.m in Sources */,
 				949C74C51B5909B7006DFA69 /* F4ShareHTTPTool.m in Sources */,
 				947BF6241B5CC9CA004B9521 /* F4QQHandler.m in Sources */,
 				947BF62A1B5CCA5C004B9521 /* F4WeChatHandler.m in Sources */,
+				18B0F61F1B5E4F9500436505 /* WeChatVC.m in Sources */,
 				18B0F6161B5E282C00436505 /* SinaVC.m in Sources */,
 				949C74A01B59021E006DFA69 /* F4ShareUserInfo.m in Sources */,
 				947BF62D1B5CCAB2004B9521 /* F4ShareMessage.m in Sources */,

@@ -9,6 +9,7 @@
 #import "ViewController.h"
 #import "QQShareVC.h"
 #import "SinaVC.h"
+#import "WeChatVC.h"
 @interface ViewController ()
 
 @end
@@ -18,7 +19,7 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     
-    NSArray *share = @[@"QQ", @"微博"];
+    NSArray *share = @[@"QQ", @"新浪微博", @"微信"];
     
     for (int i = 0; i < share.count; i++)
     {
@@ -45,6 +46,12 @@
     {
         SinaVC *sina = [[SinaVC alloc]init];
         [self presentViewController:sina animated:YES completion:^{
+        }];
+    }
+    else if (btn.tag == 2)
+    {
+        WeChatVC *weChat = [[WeChatVC alloc]init];
+        [self presentViewController:weChat animated:YES completion:^{
         }];
     }
 }
