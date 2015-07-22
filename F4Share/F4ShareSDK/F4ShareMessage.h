@@ -28,11 +28,7 @@ typedef enum {
     SharePlatformTimeline /**<微信朋友圈*/
 }SharePlatform;
 
-typedef enum {
-    WeChatSceneSession  = 0,
-    WeChatSceneTimeline = 1,
-    WeChatSceneFavorite = 2,
-}WeChatScene;
+
 
 typedef void(^ShareResult)(NSInteger stateCode,NSString *stateString);                             /**<分享结果*/
 typedef void(^LoginResult)(F4ShareUserInfo *userInfo, NSInteger stateCode , NSString *stateString);/**<授权登录结果*/

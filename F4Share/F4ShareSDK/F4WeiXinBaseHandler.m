@@ -114,8 +114,8 @@
     if (msg.url.length > 0)
     {
         WXMediaMessage *message = [WXMediaMessage message];
-        message.title = msg.title.length? msg.title: @"分享";
-        message.description = msg.desc? msg.desc: @"分享详情";
+        message.title = msg.title.length > 0? msg.title: @"分享";
+        message.description = msg.desc.length > 0? msg.desc: @"分享详情";
         [message setThumbImage:[UIImage imageWithData:[NSData dataWithContentsOfURL:[NSURL URLWithString:msg.imageUrl]]]];
         
         WXWebpageObject *ext = [WXWebpageObject object];
@@ -141,8 +141,8 @@
     if (msg.musicUrl.length > 0)
     {
         WXMediaMessage *message = [WXMediaMessage message];
-        message.title = msg.title;
-        message.description = msg.desc;
+        message.title = msg.title.length > 0? msg.title: @"分享";
+        message.description = msg.desc.length > 0? msg.desc: @"分享详情";
         
         WXMusicObject *ext = [WXMusicObject object];
         ext.musicUrl = msg.musicUrl;
@@ -169,8 +169,8 @@
     if (msg.mediaDataUrl.length > 0)
     {
         WXMediaMessage *message = [WXMediaMessage message];
-        message.title = msg.title;
-        message.description = msg.desc;
+        message.title = msg.title.length > 0? msg.title: @"分享";
+        message.description = msg.desc.length > 0? msg.desc: @"分享详情";
         
         WXVideoObject *ext = [WXVideoObject object];
         ext.videoUrl = @"http://v.youku.com/v_show/id_XNTUxNDY1NDY4.html";
@@ -196,12 +196,12 @@
     if (msg.fileExt > 0)
     {
         WXMediaMessage *message = [WXMediaMessage message];
-        message.title = msg.title;
-        message.description = msg.desc;
+        message.title = msg.title.length > 0? msg.title: @"分享";
+        message.description = msg.desc.length > 0? msg.desc: @"分享详情";
         
         WXAppExtendObject *ext = [WXAppExtendObject object];
         ext.extInfo = msg.fileExt;//@"<xml>extend info</xml>";
-        ext.url = @"http://www.qq.com";
+        ext.url = msg.url.length > 0? msg.url: @"http://weixin.qq.com";
         
         Byte* pBuffer = (Byte *)malloc(BUFFER_SIZE);
         memset(pBuffer, 0, BUFFER_SIZE);

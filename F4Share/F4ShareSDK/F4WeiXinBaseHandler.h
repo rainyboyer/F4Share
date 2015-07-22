@@ -11,5 +11,11 @@
 
 @interface F4WeiXinBaseHandler : NSObject
 
+typedef enum {
+    WeChatSceneSession  = 0,
+    WeChatSceneTimeline = 1,
+    WeChatSceneFavorite = 2,
+}WeChatScene;
+
 - (void)shareToWeiXinPlatformWithScene:(WeChatScene)scene message:(F4ShareMessage *)msg result:(ShareResult)result;
 @end
