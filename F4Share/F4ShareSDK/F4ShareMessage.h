@@ -12,7 +12,7 @@ typedef enum {
     ShareNone, /**<不分享*/
     ShareText, /**<文字*/
     ShareImage, /**<图片*/
-    ShareNews, /**<新闻*/
+    ShareNews, /**<新闻&&网址*/
     ShareMusic, /**<音频*/
     ShareVideo, /**<视频*/
     ShareApp, /**<应用*/
@@ -52,6 +52,8 @@ typedef void(^LoginResult)(F4ShareUserInfo *userInfo, NSInteger stateCode , NSSt
 @property (nonatomic, strong) NSString *thumbnailUrl;
 // 分享类型
 @property (nonatomic, assign) ShareType shareType;
+// 分享音乐类型
+@property (nonatomic, strong) NSString *musicUrl;
 // 分享扩展信息
 @property (nonatomic, strong) NSString *extInfo;
 // 分享视频数据URL

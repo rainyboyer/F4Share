@@ -58,8 +58,8 @@
             NSData *imageData = [NSData dataWithContentsOfURL:[NSURL URLWithString:message.imageUrl]];
             apiObject = [QQApiImageObject objectWithData:imageData
                                         previewImageData:imageData
-                                                   title:message.title? message.title: @"分享图片"
-                                             description:message.desc? message.desc: @"图片详情"];
+                                                   title:message.title.length? message.title: @"分享图片"
+                                             description:message.desc.length? message.desc: @"图片详情"];
         }
 
 //        dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
@@ -88,8 +88,8 @@
         {
             NSData *imageData = [NSData dataWithContentsOfURL:[NSURL URLWithString:message.imageUrl]];
             apiObject = [QQApiVideoObject objectWithURL:[NSURL URLWithString:message.mediaDataUrl]
-                                                  title:message.title? message.title: @"分享视频"
-                                            description:message.desc? message.desc: @"视频详情"
+                                                  title:message.title.length? message.title: @"分享视频"
+                                            description:message.desc.length? message.desc: @"视频详情"
                                        previewImageData:imageData? imageData: nil];
         }
     }
@@ -102,9 +102,10 @@
         else
         {
             apiObject = [QQApiNewsObject objectWithURL:[NSURL URLWithString:message.url]
-                                                 title:message.title? message.title: @"分享"
-                                           description:message.desc? message.desc: @"详情"
-                                       previewImageURL:message.imageUrl? [NSURL URLWithString:message.imageUrl]: nil];
+                                                 title:message.title.length? message.title: @"分享"
+                                           description:message.desc.length? message.desc: @"详情"
+                                       previewImageURL:message.imageUrl.length?
+                                                        [NSURL URLWithString:message.imageUrl]: nil];
         }
     }
     else// 分享其他类型

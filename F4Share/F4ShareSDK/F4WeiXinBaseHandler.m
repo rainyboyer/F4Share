@@ -28,41 +28,34 @@
     
     if (!msg.shareType)
     {
-        //不指定类型
-        if ([msg isEmpty:@[@"imageUrl",@"url"] AndNotEmpty:@[@"title"]])
-        {
-            //文本
-            [self sendTextContentWithMessage:msg result:result];
-            
-        }else if([msg isEmpty:@[@"url"] AndNotEmpty:@[@"imageUrl"]])
-        {
-            //图片
-            [self sendImageContentWithMessage:msg];
-            
-        }else if([msg isEmpty:nil AndNotEmpty:@[@"url",@"title",@"imageUrl"]])
-        {
-            //混合。
-            [self sendNewsContentWithMessage:msg];
-            
-        }else if ([msg isEmpty:@[@"title",@"imageUrl"] AndNotEmpty:@[@"url"]])
-        {
-            //只分享Url
-            [self sendUrlContentWithMessage:msg];
-            
-        }
+        NSLog(@"微信不支持此分享类型");
     }
-    else if(msg.shareType==ShareMusic)
+    else if(msg.shareType == ShareText)
+    {
+        // 文字
+        [self sendTextContentWithMessage:msg result:result];
+    }
+    else if(msg.shareType == ShareImage)
+    {
+        // 图片
+        [self sendImageContentWithMessage:msg];
+    }
+    else if(msg.shareType == ShareNews)
+    {
+        // 新闻和网址
+        [self sendNewsContentWithMessage:msg];
+    }
+    else if(msg.shareType == ShareMusic)
     {
         //music
         [self sendMusicContentWithMessage:msg];
-        
     }
-    else if(msg.shareType==ShareVideo)
+    else if(msg.shareType == ShareVideo)
     {
         //video
         [self sendVideoContentWithMessage:msg];
     }
-    else if(msg.shareType==ShareApp)
+    else if(msg.shareType == ShareApp)
     {
         //app
         [self sendAppContentWithMessage:msg];
@@ -83,7 +76,7 @@
 - (void)sendTextContentWithMessage:(F4ShareMessage *)msg result:(ShareResult)result
 {
     SendMessageToWXReq* req = [[SendMessageToWXReq alloc] init];
-    req.text = msg.title.length > 0 ? msg.title : @"";
+    req.text = msg.desc.length > 0 ? msg.desc : @"分享";
     
     req.bText = YES;
     req.scene = _scene;
@@ -93,167 +86,177 @@
 
 - (void)sendImageContentWithMessage:(F4ShareMessage *)msg
 {
-    WXMediaMessage *message = [WXMediaMessage message];
-    if (msg.thumbnailUrl)
+    if (msg.imageUrl.length > 0)
     {
+        WXMediaMessage *message = [WXMediaMessage message];
         [message setThumbData:[NSData dataWithContentsOfURL:[NSURL URLWithString:msg.thumbnailUrl]]];
+        WXImageObject *ext = [WXImageObject object];
+        ext.imageData = [NSData dataWithContentsOfURL:[NSURL URLWithString:msg.imageUrl]];
+        
+        message.mediaObject = ext;
+        
+        SendMessageToWXReq *req = [[SendMessageToWXReq alloc] init];
+        req.bText = NO;
+        req.message = message;
+        req.scene = _scene;
+        
+        [WXApi sendReq:req];
     }
-    
-    WXImageObject *ext = [WXImageObject object];
-    ext.imageData = [NSData dataWithContentsOfURL:[NSURL URLWithString:msg.imageUrl]];
-    
-    message.mediaObject = ext;
-    
-    SendMessageToWXReq *req = [[SendMessageToWXReq alloc] init];
-    req.bText = NO;
-    req.message = message;
-    req.scene = _scene;
-    
-    [WXApi sendReq:req];
+    else
+    {
+        NSLog(@"您的分享图片为空或未能解析");
+    }
+
 }
 
 - (void)sendNewsContentWithMessage:(F4ShareMessage *)msg
 {
-    WXMediaMessage *message = [WXMediaMessage message];
-    message.title = msg.title;
-    message.description = msg.desc;
-    [message setThumbImage:[UIImage imageWithData:[NSData dataWithContentsOfURL:[NSURL URLWithString:msg.imageUrl]]]];
-    
-    WXWebpageObject *ext = [WXWebpageObject object];
-    ext.webpageUrl = msg.url;
-    
-    message.mediaObject = ext;
-    
-    SendMessageToWXReq* req = [[SendMessageToWXReq alloc] init];
-    req.bText = NO;
-    req.message = message;
-    req.scene = _scene;
-    
-    [WXApi sendReq:req];
+    if (msg.url.length > 0)
+    {
+        WXMediaMessage *message = [WXMediaMessage message];
+        message.title = msg.title.length? msg.title: @"分享";
+        message.description = msg.desc? msg.desc: @"分享详情";
+        [message setThumbImage:[UIImage imageWithData:[NSData dataWithContentsOfURL:[NSURL URLWithString:msg.imageUrl]]]];
+        
+        WXWebpageObject *ext = [WXWebpageObject object];
+        ext.webpageUrl = msg.url;
+        
+        message.mediaObject = ext;
+        
+        SendMessageToWXReq* req = [[SendMessageToWXReq alloc] init];
+        req.bText = NO;
+        req.message = message;
+        req.scene = _scene;
+        
+        [WXApi sendReq:req];
+    }
+    else
+    {
+        NSLog(@"您的分享网址尚未设置");
+    }
 }
 
 - (void)sendMusicContentWithMessage:(F4ShareMessage *)msg
 {
-    WXMediaMessage *message = [WXMediaMessage message];
-    message.title = msg.title;
-    message.description = msg.desc;
-    
-    WXMusicObject *ext = [WXMusicObject object];
-    ext.musicUrl = @"http://y.qq.com/i/song.html#p=7B22736F6E675F4E616D65223A22E4B880E697A0E68980E69C89222C22736F6E675F5761704C69766555524C223A22687474703A2F2F74736D7573696334382E74632E71712E636F6D2F586B30305156342F4141414130414141414E5430577532394D7A59344D7A63774D4C6735586A4C517747335A50676F47443864704151526643473444442F4E653765776B617A733D2F31303130333334372E6D34613F7569643D3233343734363930373526616D703B63743D3026616D703B636869643D30222C22736F6E675F5769666955524C223A22687474703A2F2F73747265616D31342E71716D757369632E71712E636F6D2F33303130333334372E6D7033222C226E657454797065223A2277696669222C22736F6E675F416C62756D223A22E4B880E697A0E68980E69C89222C22736F6E675F4944223A3130333334372C22736F6E675F54797065223A312C22736F6E675F53696E676572223A22E5B494E581A5222C22736F6E675F576170446F776E4C6F616455524C223A22687474703A2F2F74736D757369633132382E74632E71712E636F6D2F586C464E4D313574414141416A41414141477A4C36445039536A457A525467304E7A38774E446E752B6473483833344843756B5041576B6D48316C4A434E626F4D34394E4E7A754450444A647A7A45304F513D3D2F33303130333334372E6D70333F7569643D3233343734363930373526616D703B63743D3026616D703B636869643D3026616D703B73747265616D5F706F733D35227D";
-    ext.musicDataUrl = @"http://stream20.qqmusic.qq.com/32464723.mp3";
-    
-    message.mediaObject = ext;
-    
-    SendMessageToWXReq* req = [[SendMessageToWXReq alloc] init];
-    req.bText = NO;
-    req.message = message;
-    req.scene = _scene;
-    
-    [WXApi sendReq:req];
+    if (msg.musicUrl.length > 0)
+    {
+        WXMediaMessage *message = [WXMediaMessage message];
+        message.title = msg.title;
+        message.description = msg.desc;
+        
+        WXMusicObject *ext = [WXMusicObject object];
+        ext.musicUrl = msg.musicUrl;
+        //ext.musicDataUrl = @"http://stream20.qqmusic.qq.com/32464723.mp3";
+        
+        message.mediaObject = ext;
+        
+        SendMessageToWXReq* req = [[SendMessageToWXReq alloc] init];
+        req.bText = NO;
+        req.message = message;
+        req.scene = _scene;
+        
+        [WXApi sendReq:req];
+    }
+    else
+    {
+        NSLog(@"您的分享音乐地址尚未设置");
+    }
     
 }
 
 - (void)sendVideoContentWithMessage:(F4ShareMessage *)msg
 {
-    WXMediaMessage *message = [WXMediaMessage message];
-    message.title = msg.title;
-    message.description = msg.desc;
-    
-    WXVideoObject *ext = [WXVideoObject object];
-    ext.videoUrl = @"http://v.youku.com/v_show/id_XNTUxNDY1NDY4.html";
-    
-    message.mediaObject = ext;
-    
-    SendMessageToWXReq* req = [[SendMessageToWXReq alloc] init];
-    req.bText = NO;
-    req.message = message;
-    req.scene = _scene;
-    
-    [WXApi sendReq:req];
-    
+    if (msg.mediaDataUrl.length > 0)
+    {
+        WXMediaMessage *message = [WXMediaMessage message];
+        message.title = msg.title;
+        message.description = msg.desc;
+        
+        WXVideoObject *ext = [WXVideoObject object];
+        ext.videoUrl = @"http://v.youku.com/v_show/id_XNTUxNDY1NDY4.html";
+        
+        message.mediaObject = ext;
+        
+        SendMessageToWXReq* req = [[SendMessageToWXReq alloc] init];
+        req.bText = NO;
+        req.message = message;
+        req.scene = _scene;
+        
+        [WXApi sendReq:req];
+    }
+    else
+    {
+        NSLog(@"您的分享视频地址尚未设置");
+    }
 }
 
 #define BUFFER_SIZE 1024 * 100
 - (void)sendAppContentWithMessage:(F4ShareMessage *)msg
 {
-    WXMediaMessage *message = [WXMediaMessage message];
-    message.title = msg.title;
-    message.description = msg.desc;
-    
-    WXAppExtendObject *ext = [WXAppExtendObject object];
-    ext.extInfo = @"<xml>extend info</xml>";
-    ext.url = @"http://www.qq.com";
-    
-    Byte* pBuffer = (Byte *)malloc(BUFFER_SIZE);
-    memset(pBuffer, 0, BUFFER_SIZE);
-    NSData* data = [NSData dataWithBytes:pBuffer length:BUFFER_SIZE];
-    free(pBuffer);
-    
-    ext.fileData = data;
-    
-    message.mediaObject = ext;
-    
-    SendMessageToWXReq* req = [[SendMessageToWXReq alloc] init];
-    req.bText = NO;
-    req.message = message;
-    req.scene = _scene;
-    
-    [WXApi sendReq:req];
-    
+    if (msg.fileExt > 0)
+    {
+        WXMediaMessage *message = [WXMediaMessage message];
+        message.title = msg.title;
+        message.description = msg.desc;
+        
+        WXAppExtendObject *ext = [WXAppExtendObject object];
+        ext.extInfo = msg.fileExt;//@"<xml>extend info</xml>";
+        ext.url = @"http://www.qq.com";
+        
+        Byte* pBuffer = (Byte *)malloc(BUFFER_SIZE);
+        memset(pBuffer, 0, BUFFER_SIZE);
+        NSData* data = [NSData dataWithBytes:pBuffer length:BUFFER_SIZE];
+        free(pBuffer);
+        
+        ext.fileData = data;
+        
+        message.mediaObject = ext;
+        
+        SendMessageToWXReq* req = [[SendMessageToWXReq alloc] init];
+        req.bText = NO;
+        req.message = message;
+        req.scene = _scene;
+        
+        [WXApi sendReq:req];
+    }
+    else
+    {
+        NSLog(@"您的分享App内容尚未设置");
+    }
 }
 
 - (void)sendGifContentWithMessage:(F4ShareMessage *)msg
 {
-    WXMediaMessage *message = [WXMediaMessage message];
-    
-    WXEmoticonObject *ext = [WXEmoticonObject object];
-    
-    message.mediaObject = ext;
-    
-    SendMessageToWXReq* req = [[SendMessageToWXReq alloc] init];
-    req.bText = NO;
-    req.message = message;
-    req.scene = _scene;
-    
-    [WXApi sendReq:req];
-    
+//    WXMediaMessage *message = [WXMediaMessage message];
+//    
+//    WXEmoticonObject *ext = [WXEmoticonObject object];
+//    
+//    message.mediaObject = ext;
+//    
+//    SendMessageToWXReq* req = [[SendMessageToWXReq alloc] init];
+//    req.bText = NO;
+//    req.message = message;
+//    req.scene = _scene;
+//    
+//    [WXApi sendReq:req];
+    NSLog(@"尚不支持此分享方式");
 }
 
 - (void)sendNonGifContentWithMessage:(F4ShareMessage *)msg
 {
-    WXMediaMessage *message = [WXMediaMessage message];
-    
-    
-    WXEmoticonObject *ext = [WXEmoticonObject object];
-    
-    message.mediaObject = ext;
-    
-    SendMessageToWXReq* req = [[SendMessageToWXReq alloc] init];
-    req.bText = NO;
-    req.message = message;
-    req.scene = _scene;
-    
-    [WXApi sendReq:req];
-    
-}
-
-- (void)sendUrlContentWithMessage:(F4ShareMessage *)msg
-{
-    WXMediaMessage *message = [WXMediaMessage message];
-    message.title = msg.title.length > 0 ? msg.title : @"";
-    message.description = msg.desc.length > 0 ? msg.desc : @"";
-    
-    WXWebpageObject *ext = [WXWebpageObject object];
-    ext.webpageUrl = msg.url.length > 0 ? msg.url : @"";
-    
-    message.mediaObject = ext;
-    
-    SendMessageToWXReq* req = [[SendMessageToWXReq alloc] init];
-    req.bText = NO;
-    req.message = message;
-    req.scene = _scene;
-    
-    [WXApi sendReq:req];
+//    WXMediaMessage *message = [WXMediaMessage message];
+//    
+//    WXEmoticonObject *ext = [WXEmoticonObject object];
+//    
+//    message.mediaObject = ext;
+//    
+//    SendMessageToWXReq* req = [[SendMessageToWXReq alloc] init];
+//    req.bText = NO;
+//    req.message = message;
+//    req.scene = _scene;
+//    
+//    [WXApi sendReq:req];
+    NSLog(@"尚不支持此分享方式");
 }
 
 - (void)onResp:(BaseResp*)resp
