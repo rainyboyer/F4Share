@@ -7,9 +7,9 @@
 //
 
 #import "ViewController.h"
-#import "QQShareVC.h"
-#import "SinaVC.h"
-#import "WeChatVC.h"
+#import "FA_BaseActionSheet.h"
+#import "F4ShareMessage.h"
+
 @interface ViewController ()
 
 @end
@@ -18,42 +18,32 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    
-    NSArray *share = @[@"QQ", @"新浪微博", @"微信"];
-    
-    for (int i = 0; i < share.count; i++)
-    {
-        UIButton *btn = [UIButton buttonWithType:UIButtonTypeCustom];
-        [btn setFrame:CGRectMake(100, 200*i, 200, 100)];
-        [btn setTitle:[share objectAtIndex:i] forState:UIControlStateNormal];
-        [btn setTitleColor:[UIColor orangeColor] forState:UIControlStateNormal];
-        [btn setTag:i];
-        [btn addTarget:self action:@selector(buttonPressed:) forControlEvents:UIControlEventTouchUpInside];
-        [self.view addSubview:btn];
-    }
+
+	UIButton *btn = [UIButton buttonWithType:UIButtonTypeCustom];
+	[btn setFrame:CGRectMake(100, 100, 200, 100)];
+	[btn setTitle:@"分享" forState:UIControlStateNormal];
+	[btn setTitleColor:[UIColor orangeColor] forState:UIControlStateNormal];
+	[btn addTarget:self action:@selector(buttonPressed:) forControlEvents:UIControlEventTouchUpInside];
+	[self.view addSubview:btn];
     
 }
 
 - (void)buttonPressed:(UIButton *)btn
 {
-    if (btn.tag == 0)
-    {
-        QQShareVC *qqShare = [[QQShareVC alloc]init];
-        [self presentViewController:qqShare animated:YES completion:^{
-        }];
-    }
-    else if (btn.tag == 1)
-    {
-        SinaVC *sina = [[SinaVC alloc]init];
-        [self presentViewController:sina animated:YES completion:^{
-        }];
-    }
-    else if (btn.tag == 2)
-    {
-        WeChatVC *weChat = [[WeChatVC alloc]init];
-        [self presentViewController:weChat animated:YES completion:^{
-        }];
-    }
+    F4ShareMessage *message = [[F4ShareMessage alloc]init];
+    message.url = @"http://www.baidu.com";
+    message.title = @"分享新闻";
+    message.imageUrl = @"http://42.120.16.240/beeto/addons/theme/beeto/_static/beeto/images/home/banner_5.jpg";
+    message.shareType = ShareText;
+    message.desc = @"unbelievable";
+    message.mediaDataUrl = @"http://www.baidu.com";
+    
+	FA_BaseActionSheet *actionSheet = [[FA_BaseActionSheet alloc] initWithTitles: @[[NSNumber numberWithInt:SharePlatformWeChat],
+                                                                                    [NSNumber numberWithInt:SharePlatformWeibo],
+                                                                                    [NSNumber numberWithInt:SharePlatformQQ],
+                                                                                    [NSNumber numberWithInt:SharePlatformTimeline]]];
+    actionSheet.message = message;
+	[self.view addSubview:actionSheet];
 }
 
 @end

@@ -29,6 +29,16 @@
     return [NSNumber numberWithInteger:SharePlatformWeChat];
 }
 
+- (NSString *)getPlatformName
+{
+    return @"微信好友";
+}
+
+- (NSString *)getPlatformImageName
+{
+    return @"UMS_wechat_session_icon";
+}
+
 - (BOOL)handleMessage:(F4ShareMessage *)message result:(ShareResult)result
 {
     _shareResult = result;
@@ -36,6 +46,20 @@
     [self shareToWeChatSession:message result:result];
 
     return YES;
+}
+
+- (BOOL)handleWithSourceApplication:(NSString *)application url:(NSURL *)url
+{
+    
+    if ([application isEqualToString:@"com.tencent.xin"])
+    {
+        NSLog(@"微信好友反馈");
+        return YES;
+    }
+    else
+    {
+        return NO;
+    }
 }
 
 - (BOOL)registerPlatformWithAppID:(NSString *)appID redirectURI:(NSString *)redirectURI

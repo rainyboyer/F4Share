@@ -40,7 +40,7 @@
     [[F4HandleEngine sharedInstance] registerWith:SharePlatformQQ appID:@"1104720510" redirectURI:@"http://www.qq.com"];
     [[F4HandleEngine sharedInstance] registerWith:SharePlatformWeibo appID:@"1425226178" redirectURI:@"http://www.beetto.com"];
     [[F4HandleEngine sharedInstance] registerWith:SharePlatformWeChat appID:@"wx78a4899f5331a20f" redirectURI:@"http://www.baidu.com"];
-        [[F4HandleEngine sharedInstance] registerWith:SharePlatformTimeline appID:@"wx78a4899f5331a20f" redirectURI:@"http://www.baidu.com"];
+    [[F4HandleEngine sharedInstance] registerWith:SharePlatformTimeline appID:@"wx78a4899f5331a20f" redirectURI:@"http://www.baidu.com"];
     
     
     return YES;
@@ -48,7 +48,7 @@
 
 - (BOOL)application:(UIApplication *)application openURL:(NSURL *)url sourceApplication:(NSString *)sourceApplication annotation:(id)annotation
 {
-    return [F4HandleEngine handleOpenURL:url];
+    return [[F4HandleEngine sharedInstance] handleWithSourceApplication:sourceApplication openURL:url];
 }
 
 @end

@@ -22,9 +22,14 @@
 - (BOOL)userLoginResult:(LoginResult)result;
 
 // 处理回调
-- (BOOL)handleUrl:(NSURL *)url;
+- (BOOL)handleWithSourceApplication:(NSString *)application url:(NSURL *)url;
 
 // 设置微信平台
 - (BOOL)registerPlatformWithAppID:(NSString *)appID redirectURI:(NSString *)redirectURI;
 
+/**<获取平台名字*/
+- (NSString *)getPlatformName;
+
+/**<获取平台logo名字*/
+- (NSString *)getPlatformImageName;
 @end

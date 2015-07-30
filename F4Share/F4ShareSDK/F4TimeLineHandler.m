@@ -29,9 +29,33 @@
     return [NSNumber numberWithInteger:SharePlatformTimeline];
 }
 
+- (NSString *)getPlatformName
+{
+    return @"微信朋友圈";
+}
+
+- (NSString *)getPlatformImageName
+{
+    return @"UMS_wechat_timeline_icon";
+}
+
 - (BOOL)registerPlatformWithAppID:(NSString *)appID redirectURI:(NSString *)redirectURI
 {
     return [WXApi registerApp:appID];
+}
+
+- (BOOL)handleWithSourceApplication:(NSString *)application url:(NSURL *)url
+{
+    
+    if ([application isEqualToString:@"com.tencent.xin"])
+    {
+        NSLog(@"朋友圈反馈");
+        return YES;
+    }
+    else
+    {
+        return NO;
+    }
 }
 
 - (BOOL)handleMessage:(F4ShareMessage *)message result:(ShareResult)result
@@ -48,4 +72,5 @@
     NSLog(@"TimeLine");
     [super shareToWeiXinPlatformWithScene:WeChatSceneTimeline message:msg result:result];
 }
+
 @end

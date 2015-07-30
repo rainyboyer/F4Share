@@ -32,6 +32,16 @@
     return [NSNumber numberWithInt:SharePlatformQQ];
 }
 
+- (NSString *)getPlatformName
+{
+    return @"QQ";
+}
+
+- (NSString *)getPlatformImageName
+{
+    return @"UMS_qq_icon";
+}
+
 #pragma mark - TencentShare
 - (BOOL)handleMessage:(F4ShareMessage *)message result:(ShareResult)result
 {
@@ -185,25 +195,32 @@
 }
 
 #pragma mark - TencentHandleUrl
--  (BOOL)handleUrl:(NSURL *)url
+- (BOOL)handleWithSourceApplication:(NSString *)application url:(NSURL *)url
 {
-    NSMutableDictionary *dic = [NSMutableDictionary dealWithQueryWithMask:url.absoluteString];
-    
-    NSLog(@"dic: %@", dic);
-    NSEnumerator * enumeratorKey = [dic keyEnumerator];
-    
-    //快速枚举遍历所有KEY的值
-    for (NSString *object in enumeratorKey)
+    if ([application isEqualToString:@"com.tencent.mqq"])
     {
-        if ([object isEqualToString:@"error"])
+        NSLog(@"QQ反馈");
+        NSMutableDictionary *dic = [NSMutableDictionary dealWithQueryWithMask:url.absoluteString];
+        
+        NSEnumerator * enumeratorKey = [dic keyEnumerator];
+        
+        //快速枚举遍历所有KEY的值
+        for (NSString *object in enumeratorKey)
         {
-            _shareResult([[dic objectForKey:@"error"] integerValue],_stateString);
+            if ([object isEqualToString:@"error"])
+            {
+                _shareResult([[dic objectForKey:@"error"] integerValue],_stateString);
+            }
         }
+        
+        
+        [TencentOAuth HandleOpenURL:url];
+        return YES;
     }
-    
-    
-    [TencentOAuth HandleOpenURL:url];
-    return YES;
+    else
+    {
+        return NO;
+    }
 }
 
 #pragma mark - TencentSessionDelegate

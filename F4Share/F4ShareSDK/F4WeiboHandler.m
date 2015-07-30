@@ -43,6 +43,16 @@ static NSString *KStateString;
     return YES;
 }
 
+- (NSString *)getPlatformName
+{
+    return @"新浪微博";
+}
+
+- (NSString *)getPlatformImageName
+{
+    return @"UMS_sina_icon";
+}
+
 - (BOOL)registerPlatformWithAppID:(NSString *)appID redirectURI:(NSString *)redirectURI
 {
     KRedirectURI = redirectURI;
@@ -153,9 +163,18 @@ static NSString *KStateString;
     return request;
 }
 
-- (BOOL)handleUrl:(NSURL *)url
+- (BOOL)handleWithSourceApplication:(NSString *)application url:(NSURL *)url
 {
-    return [WeiboSDK handleOpenURL:url delegate:self];
+    
+    if ([application isEqualToString:@"com.sina.weibo"])
+    {
+        NSLog(@"Sina反馈");
+        return [WeiboSDK handleOpenURL:url delegate:self];
+    }
+    else
+    {
+        return NO;
+    }
 }
 
 - (void)didReceiveWeiboRequest:(WBBaseRequest *)request
