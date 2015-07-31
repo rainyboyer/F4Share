@@ -43,6 +43,7 @@
                                                                                     [NSNumber numberWithInt:SharePlatformQQ],
                                                                                     [NSNumber numberWithInt:SharePlatformTimeline]]];
     actionSheet.message = message;
+    NSLog(@"abc");
 	[self.view addSubview:actionSheet];
 }
 
