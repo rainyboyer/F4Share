@@ -18,8 +18,8 @@ Pod::Spec.new do |s|
 
   # s.resources = "Resources/*.png"
 
-  s.frameworks = "Foundation","UIKit","MapKit","QuartzCore","CoreText","ImageIO","Security","CoreTelephony","CoreGraphics","SystemConfiguration"
-   s.libraries = "iconv", "z","stdc++","sqlite3", "TencentOpenAPI"
+  s.frameworks = "Foundation","UIKit","MapKit","QuartzCore","CoreText","ImageIO","Security","CoreTelephony","CoreGraphics","SystemConfiguration", "TencentOpenAPI"
+   s.libraries = "iconv", "z","stdc++","sqlite3"
    s.requires_arc = true
    s.dependency 'WeiboSDK', '~> 3.0.1'
    s.dependency 'TencentOpenApiSDK', '~> 2.9.0'
