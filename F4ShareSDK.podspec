@@ -27,6 +27,5 @@ Pod::Spec.new do |s|
    s.dependency 'WeiboSDK', '~> 3.0.1'
    #s.dependency 'TencentOpenApiSDK', '~> 2.9.0'
    s.dependency 'iOSWeChatSdk', '~> 1.5.0'
-   s.dependency 'JSONKit', '~> 1.4'
 
 end
