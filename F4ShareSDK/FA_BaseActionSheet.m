@@ -11,7 +11,8 @@
 
 #define MainRect [[UIScreen mainScreen] bounds]
 #define HeightInterval 10.0
-#define ButtonHeight 100.0
+#define ButtonHeight 90.0
+#define LogoImageSize CGSizeMake(45, 45)
 @interface FA_BaseActionSheet()
 @property (nonatomic, strong) UIView *bgView;
 @property (nonatomic, assign) CGFloat actionHeight;
@@ -36,6 +37,8 @@
         {
             NSString *title = [[F4HandleEngine sharedInstance] getPlatformNameWith:[[titles objectAtIndex:i] intValue]];
             NSString *logoName = [[F4HandleEngine sharedInstance] getPlatformImageNameWith:[[titles objectAtIndex:i] intValue]];
+            UIImage *logoImage = [self imageByScalingAndCroppingForSize:LogoImageSize
+                                                            sourceImage:[UIImage imageNamed:logoName]];
             UIButton *button = [UIButton buttonWithType:UIButtonTypeCustom];
             [button setFrame:CGRectMake((i%4)* buttonWidth, (i/4)*ButtonHeight, buttonWidth, ButtonHeight)];
             [button setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
@@ -43,9 +46,9 @@
             [button.titleLabel setFont:[UIFont systemFontOfSize:14.0f]];
             [button setTitle:title forState:UIControlStateNormal];
             [button.titleLabel setTextAlignment:NSTextAlignmentCenter];
-            [button setImage:[UIImage imageNamed:logoName] forState:UIControlStateNormal];
+            [button setImage:logoImage forState:UIControlStateNormal];
             
-            CGFloat offset = 40.0f;
+            CGFloat offset = 20.0f;
             button.titleEdgeInsets = UIEdgeInsetsMake(0,
                                                       -button.imageView.frame.size.width,
                                                       -button.imageView.frame.size.height-offset/2,
@@ -135,5 +138,52 @@
 - (void)backgroundViewRemove
 {
     [self removeFromSuperview];
+}
+
+- (UIImage*)imageByScalingAndCroppingForSize:(CGSize)targetSize sourceImage:(UIImage *)image
+{
+    UIImage *newImage = nil;
+    CGSize imageSize = image.size;
+    CGFloat width = imageSize.width;
+    CGFloat height = imageSize.height;
+    CGFloat targetWidth = targetSize.width;
+    CGFloat targetHeight = targetSize.height;
+    CGFloat scaleFactor = 0.0;
+    CGFloat scaledWidth = targetWidth;
+    CGFloat scaledHeight = targetHeight;
+    CGPoint thumbnailPoint = CGPointMake(0.0,0.0);
+    if (CGSizeEqualToSize(imageSize, targetSize) == NO)
+    {
+        CGFloat widthFactor = targetWidth / width;
+        CGFloat heightFactor = targetHeight / height;
+        if (widthFactor > heightFactor)
+            scaleFactor = widthFactor; // scale to fit height
+        else
+            scaleFactor = heightFactor; // scale to fit width
+        scaledWidth  = width * scaleFactor;
+        scaledHeight = height * scaleFactor;
+        // center the image
+        if (widthFactor > heightFactor)
+        {
+            thumbnailPoint.y = (targetHeight - scaledHeight) * 0.5;
+        }
+        else
+            if (widthFactor < heightFactor)
+            {
+                thumbnailPoint.x = (targetWidth - scaledWidth) * 0.5;
+            }
+    }
+    UIGraphicsBeginImageContext(targetSize); // this will crop
+    CGRect thumbnailRect = CGRectZero;
+    thumbnailRect.origin = thumbnailPoint;
+    thumbnailRect.size.width  = scaledWidth;
+    thumbnailRect.size.height = scaledHeight;
+    [image drawInRect:thumbnailRect];
+    newImage = UIGraphicsGetImageFromCurrentImageContext();
+    if(newImage == nil)
+        NSLog(@"could not scale image");
+    //pop the context to get back to the default
+    UIGraphicsEndImageContext();
+    return newImage;
 }
 @end
