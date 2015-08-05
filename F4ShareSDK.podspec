@@ -16,7 +16,7 @@ Pod::Spec.new do |s|
    # 'aaaLibrary' => ['aaaLibrary/*']
   #}                                       
 
-  # s.resources = "Resources/*.png"
+  s.resources = "Resources/*.png"
 
   s.frameworks = "Foundation","UIKit","MapKit","QuartzCore","CoreText","ImageIO","Security","CoreTelephony","CoreGraphics","SystemConfiguration", "TencentOpenAPI"
    s.libraries = "iconv", "z","stdc++","sqlite3"
