@@ -36,7 +36,7 @@
 
 - (NSString *)getPlatformImageName
 {
-    return @"UMS_wechat_timeline_icon";
+    return @"img_icon_timeline";
 }
 
 - (BOOL)registerPlatformWithAppID:(NSString *)appID redirectURI:(NSString *)redirectURI

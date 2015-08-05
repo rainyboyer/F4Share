@@ -50,7 +50,7 @@ static NSString *KStateString;
 
 - (NSString *)getPlatformImageName
 {
-    return @"UMS_sina_icon";
+    return @"img_icon_sina";
 }
 
 - (BOOL)registerPlatformWithAppID:(NSString *)appID redirectURI:(NSString *)redirectURI

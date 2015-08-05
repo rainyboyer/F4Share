@@ -39,7 +39,7 @@
 
 - (NSString *)getPlatformImageName
 {
-    return @"UMS_qq_icon";
+    return @"img_icon_qq";
 }
 
 #pragma mark - TencentShare

@@ -36,7 +36,7 @@
 
 - (NSString *)getPlatformImageName
 {
-    return @"UMS_wechat_session_icon";
+    return @"img_icon_wechat";
 }
 
 - (BOOL)handleMessage:(F4ShareMessage *)message result:(ShareResult)result
