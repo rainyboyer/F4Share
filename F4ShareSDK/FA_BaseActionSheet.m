@@ -61,13 +61,13 @@
             [button addTarget:self action:@selector(buttonPressed:) forControlEvents:UIControlEventTouchUpInside];
             [_bgView addSubview:button];
             
-            // 竖线
-            UIView *vLineView = [[UIView alloc]initWithFrame:CGRectMake(((i+1)%4)* buttonWidth -0.5,
-                                                                        (i/4)*ButtonHeight,
-                                                                        0.5,
-                                                                        ButtonHeight)];
-            vLineView.backgroundColor = [[UIColor grayColor] colorWithAlphaComponent:0.5];
-            [_bgView addSubview:vLineView];
+//            // 竖线
+//            UIView *vLineView = [[UIView alloc]initWithFrame:CGRectMake(((i+1)%4)* buttonWidth -0.5,
+//                                                                        (i/4)*ButtonHeight,
+//                                                                        0.5,
+//                                                                        ButtonHeight)];
+//            vLineView.backgroundColor = [[UIColor grayColor] colorWithAlphaComponent:0.5];
+//            [_bgView addSubview:vLineView];
             // 横线
             UIView *hLineView = [[UIView alloc]initWithFrame:CGRectMake((i%4)* buttonWidth,
                                                                         ((i/4)+1)*ButtonHeight-0.5,
