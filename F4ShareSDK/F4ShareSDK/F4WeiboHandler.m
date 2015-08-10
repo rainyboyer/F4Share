@@ -42,11 +42,7 @@ static NSString *KStateString;
     _shareResult = result;
     [self shareToWeibo:message result:result];
 
-    [OpenShare shareToWeibo:message Success:^(F4ShareMessage *message) {
-//        ULog(@"分享到sina微博成功:\%@",message);
-    } Fail:^(F4ShareMessage *message, NSError *error) {
-//        ULog(@"分享到sina微博失败:\%@\n%@",message,error);
-    }];
+
     return YES;
 }
 
@@ -71,22 +67,11 @@ static NSString *KStateString;
 
 - (void)shareToWeibo:(F4ShareMessage *)msg result:(ShareResult)shareResult
 {
-    if (msg.shareType == ShareText)// text类型分享
-    {
-        [self sendTextContentWithMessage:msg ShareResult:shareResult];
-    }
-    else if (msg.shareType == ShareImage)// 图片类型分享
-    {
-        [self sendImageContentWithMessage:msg ShareResult:shareResult];
-    }
-    else if (msg.shareType == ShareNews)// 链接类型分享
-    {
-        [self sendNewsContentWithMessage:msg ShareResult:shareResult];
-    }
-    else
-    {
-        NSLog(@"新浪微博不支持此分享方式");
-    }
+    [OpenShare shareToWeibo:msg Success:^(F4ShareMessage *message) {
+        //        ULog(@"分享到sina微博成功:\%@",message);
+    } Fail:^(F4ShareMessage *msg, NSError *error) {
+        //        ULog(@"分享到sina微博失败:\%@\n%@",message,error);
+    }];
 }
 
 - (BOOL)userLoginResult:(LoginResult)result

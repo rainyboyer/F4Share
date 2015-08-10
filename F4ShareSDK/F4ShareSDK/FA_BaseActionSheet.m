@@ -113,15 +113,15 @@
 }
 
 #pragma mark - Private Methods
-// 修改管理员职位按键点击
+// 分享按键点击
 - (void)buttonPressed:(UIButton *)btn
 {
     void (^shareResult)(NSInteger,NSString *) = ^(NSInteger stateCode , NSString *stateString)
     {
         NSLog(@"ShareResult: %zd \n stateString = %@", stateCode,stateString);
     };
-
     [[F4HandleEngine sharedInstance] shareTo:(SharePlatform)btn.tag message:_message result:shareResult];
+    [self cancelButtonPressed];
 }
 
 // 取消按钮点击

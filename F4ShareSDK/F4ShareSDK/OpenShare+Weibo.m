@@ -21,14 +21,15 @@ static NSString *schema=@"Weibo";
         return;
     }
     NSDictionary *message;
-    if ([msg isEmpty:@[@"url" ,@"imageUrl"] AndNotEmpty:@[@"title"] ]) {
-        //text类型分享
+    if (msg.shareType == ShareText)// text类型分享
+    {
         message= @{
                    @"__class" : @"WBMessageObject",
                    @"text" :msg.title
                    };
-    }else if ([msg isEmpty:@[@"url" ] AndNotEmpty:@[@"title",@"imageUrl"] ]) {
-        //图片类型分享
+    }
+    else if (msg.shareType == ShareImage)// 图片类型分享
+    {
         message=@{
                   @"__class" : @"WBMessageObject",
                   @"imageObject":@{
@@ -36,9 +37,9 @@ static NSString *schema=@"Weibo";
                           },
                   @"text" : msg.title
                   };
-        
-    }else if ([msg isEmpty:nil AndNotEmpty:@[@"title",@"url" ,@"imageUrl"] ]) {
-        //链接类型分享
+    }
+    else if (msg.shareType == ShareNews)// 链接类型分享
+    {
         message=@{
                   @"__class" : @"WBMessageObject",
                   @"mediaObject":@{
@@ -52,6 +53,12 @@ static NSString *schema=@"Weibo";
                   
                   };
     }
+    else
+    {
+        NSLog(@"新浪微博不支持此分享方式");
+        return;
+    }
+
     NSString *uuid=[[NSUUID UUID] UUIDString];
     NSArray *messageData=@[
                            @{@"transferObject":[NSKeyedArchiver archivedDataWithRootObject:@{
@@ -96,47 +103,48 @@ static NSString *schema=@"Weibo";
     [self openURL:[NSString stringWithFormat:@"weibosdk://request?id=%@&sdkversion=003013000",uuid]];
 }
 
-+(BOOL)Weibo_handleOpenURL{
-    NSURL* url=[self returnedURL];
-    if ([url.scheme hasPrefix:@"wb"]) {
-        NSArray *items=[UIPasteboard generalPasteboard].items;
-        NSMutableDictionary *ret=[NSMutableDictionary dictionaryWithCapacity:items.count];
-        for (NSDictionary *item in items) {
-            for (NSString *k in item) {
-                ret[k]=[k isEqualToString:@"sdkVersion"]?item[k]:[NSKeyedUnarchiver unarchiveObjectWithData:item[k]];
-            }
-        }
-        NSDictionary *transferObject=ret[@"transferObject"];
-        if ([transferObject[@"__class"] isEqualToString:@"WBAuthorizeResponse"]) {
-            //auth
-            if ([transferObject[@"statusCode"] intValue]==0) {
-                if ([self authSuccessCallback]) {
-                    [self authSuccessCallback](transferObject);
-                }
-            }else{
-                if ([self authFailCallback]) {
-                    NSError *err=[NSError errorWithDomain:@"weibo_auth_response" code:[transferObject[@"statusCode"] intValue] userInfo:transferObject];
-                    [self authFailCallback](transferObject,err);
-                }
-            }
-        }else if ([transferObject[@"__class"] isEqualToString:@"WBSendMessageToWeiboResponse"]) {
-            //分享回调
-            if ([transferObject[@"statusCode"] intValue]==0) {
-                if ([self shareSuccessCallback]) {
-                    [self shareSuccessCallback]([self message]);
-                }
-            }else{
-                if ([self shareFailCallback]) {
-                    NSError *err=[NSError errorWithDomain:@"weibo_share_response" code:[transferObject[@"statusCode"] intValue] userInfo:transferObject];
-                    [self shareFailCallback]([self message],err);
-                }
-            }
-        }
-        return YES;
-    } else{
-        return NO;
-    }
-}
+//+(BOOL)Weibo_handleOpenURL{
+//    NSURL* url=[self returnedURL];
+//    if ([url.scheme hasPrefix:@"wb"]) {
+//        NSArray *items=[UIPasteboard generalPasteboard].items;
+//        NSMutableDictionary *ret=[NSMutableDictionary dictionaryWithCapacity:items.count];
+//        for (NSDictionary *item in items) {
+//            for (NSString *k in item) {
+//                ret[k]=[k isEqualToString:@"sdkVersion"]?item[k]:[NSKeyedUnarchiver unarchiveObjectWithData:item[k]];
+//            }
+//        }
+//        NSDictionary *transferObject=ret[@"transferObject"];
+//        if ([transferObject[@"__class"] isEqualToString:@"WBAuthorizeResponse"]) {
+//            //auth
+//            if ([transferObject[@"statusCode"] intValue]==0) {
+//                if ([self authSuccessCallback]) {
+//                    [self authSuccessCallback](transferObject);
+//                }
+//            }else{
+//                if ([self authFailCallback]) {
+//                    NSError *err=[NSError errorWithDomain:@"weibo_auth_response" code:[transferObject[@"statusCode"] intValue] userInfo:transferObject];
+//                    [self authFailCallback](transferObject,err);
+//                }
+//            }
+//        }else if ([transferObject[@"__class"] isEqualToString:@"WBSendMessageToWeiboResponse"]) {
+//            //分享回调
+//            if ([transferObject[@"statusCode"] intValue]==0) {
+//                if ([self shareSuccessCallback]) {
+//                    [self shareSuccessCallback]([self message]);
+//                }
+//            }else{
+//                if ([self shareFailCallback]) {
+//                    NSError *err=[NSError errorWithDomain:@"weibo_share_response" code:[transferObject[@"statusCode"] intValue] userInfo:transferObject];
+//                    [self shareFailCallback]([self message],err);
+//                }
+//            }
+//        }
+//        return YES;
+//    } else{
+//        return NO;
+//    }
+//    return YES;
+//}
 
 
 @end
