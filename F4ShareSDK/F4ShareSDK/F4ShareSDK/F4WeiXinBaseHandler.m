@@ -270,10 +270,10 @@
         switch (resp.errCode)
         {
             case WXSuccess:
-                stateString = @"成功";
+                stateString = @"微信分享成功";
                 break;
             case WXErrCodeCommon:
-                stateString = @"成功";
+                stateString = @"普通错误类型";
                 break;
             case WXErrCodeUserCancel:
                 stateString = @"用户取消";

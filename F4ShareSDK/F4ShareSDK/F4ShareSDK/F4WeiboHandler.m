@@ -181,7 +181,7 @@ static NSString *KStateString;
     switch (response.statusCode)
     {
         case WeiboSDKResponseStatusCodeSuccess:
-            KStateString = @"成功";
+            KStateString = @"新浪微博分享成功";
             break;
         case WeiboSDKResponseStatusCodeUserCancel:
             KStateString = @"用户取消发送";
