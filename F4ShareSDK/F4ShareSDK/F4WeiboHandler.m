@@ -12,6 +12,7 @@
 #import "F4ShareUserInfo.h"
 #import "WeiboSDK.h"
 #import "F4ShareHTTPTool.h"
+#import "OpenShare+Weibo.h"
 
 static NSString *KRedirectURI;
 static NSString *KAccess_token;
@@ -40,6 +41,12 @@ static NSString *KStateString;
 {
     _shareResult = result;
     [self shareToWeibo:message result:result];
+
+    [OpenShare shareToWeibo:message Success:^(F4ShareMessage *message) {
+//        ULog(@"分享到sina微博成功:\%@",message);
+    } Fail:^(F4ShareMessage *message, NSError *error) {
+//        ULog(@"分享到sina微博失败:\%@\n%@",message,error);
+    }];
     return YES;
 }
 
@@ -55,8 +62,10 @@ static NSString *KStateString;
 
 - (BOOL)registerPlatformWithAppID:(NSString *)appID redirectURI:(NSString *)redirectURI
 {
+//    KRedirectURI = redirectURI;
+//    [WeiboSDK registerApp:appID];
     KRedirectURI = redirectURI;
-    [WeiboSDK registerApp:appID];
+    [OpenShare set:@"Weibo" Keys:@{@"appKey":appID}];
     return YES;
 }
 
@@ -216,6 +225,9 @@ static NSString *KStateString;
         default:
             break;
     }
+    
+    UIAlertView *tipAlertView = [[UIAlertView alloc]initWithTitle:@"提示" message:KStateString delegate:nil cancelButtonTitle:@"确定" otherButtonTitles:nil, nil];
+    [tipAlertView show];
     
     NSInteger statusCode  = response.statusCode;
     

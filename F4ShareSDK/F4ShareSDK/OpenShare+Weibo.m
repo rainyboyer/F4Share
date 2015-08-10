@@ -16,28 +16,28 @@ static NSString *schema=@"Weibo";
 +(BOOL)isWeiboInstalled{
     return [self canOpen:@"weibosdk://request"];
 }
-+(void)shareToWeibo:(OSMessage*)msg Success:(shareSuccess)success Fail:(shareFail)fail{
++(void)shareToWeibo:(F4ShareMessage*)msg Success:(shareSuccess)success Fail:(shareFail)fail{
     if (![self beginShare:schema Message:msg Success:success Fail:fail]) {
         return;
     }
     NSDictionary *message;
-    if ([msg isEmpty:@[@"link" ,@"image"] AndNotEmpty:@[@"title"] ]) {
+    if ([msg isEmpty:@[@"url" ,@"imageUrl"] AndNotEmpty:@[@"title"] ]) {
         //text类型分享
         message= @{
                    @"__class" : @"WBMessageObject",
                    @"text" :msg.title
                    };
-    }else if ([msg isEmpty:@[@"link" ] AndNotEmpty:@[@"title",@"image"] ]) {
+    }else if ([msg isEmpty:@[@"url" ] AndNotEmpty:@[@"title",@"imageUrl"] ]) {
         //图片类型分享
         message=@{
                   @"__class" : @"WBMessageObject",
                   @"imageObject":@{
-                          @"imageData":msg.image
+                          @"imageData":msg.imageUrl
                           },
                   @"text" : msg.title
                   };
         
-    }else if ([msg isEmpty:nil AndNotEmpty:@[@"title",@"link" ,@"image"] ]) {
+    }else if ([msg isEmpty:nil AndNotEmpty:@[@"title",@"url" ,@"imageUrl"] ]) {
         //链接类型分享
         message=@{
                   @"__class" : @"WBMessageObject",
@@ -45,9 +45,9 @@ static NSString *schema=@"Weibo";
                           @"__class" : @"WBWebpageObject",
                           @"description": msg.desc?:msg.title,
                           @"objectID" : @"identifier1",
-                          @"thumbnailData":msg.thumbnail?:msg.image,
+                          @"thumbnailData":msg.thumbnailUrl?:msg.imageUrl,
                           @"title": msg.title,
-                          @"webpageUrl":msg.link
+                          @"webpageUrl":msg.url
                           }
                   
                   };

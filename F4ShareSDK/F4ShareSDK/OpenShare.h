@@ -8,6 +8,7 @@
 
 #import <Foundation/Foundation.h>
 #import <UIKit/UIKit.h>
+#import "F4ShareMessage.h"
 /**
  分享类型，除了news以外，还可能是video／audio／app等。
  */
@@ -19,34 +20,34 @@ typedef enum : NSUInteger {
     OSMultimediaTypeFile,
     OSMultimediaTypeUndefined
 } OSMultimediaType;
-/**
- *  OSMessage保存分享消息数据。
- */
-@interface OSMessage : NSObject
-@property NSString* title;
-@property NSString* desc;
-@property NSString* link;
-@property NSData* image;
-@property NSData* thumbnail;
-@property OSMultimediaType multimediaType;
-//for 微信
-@property NSString* extInfo;
-@property NSString* mediaDataUrl;
-@property NSString* fileExt;
-/**
- *  判断emptyValueForKeys的value都是空的，notEmptyValueForKeys的value都不是空的。
- *
- *  @param emptyValueForKeys    空值的key
- *  @param notEmptyValueForKeys 非空值的key
- *
- *  @return YES／NO
- */
--(BOOL)isEmpty:(NSArray*)emptyValueForKeys AndNotEmpty:(NSArray*)notEmptyValueForKeys;
-@end
+///**
+// *  OSMessage保存分享消息数据。
+// */
+//@interface OSMessage : NSObject
+//@property NSString* title;
+//@property NSString* desc;
+//@property NSString* link;
+//@property NSData* image;
+//@property NSData* thumbnail;
+//@property OSMultimediaType multimediaType;
+////for 微信
+//@property NSString* extInfo;
+//@property NSString* mediaDataUrl;
+//@property NSString* fileExt;
+///**
+// *  判断emptyValueForKeys的value都是空的，notEmptyValueForKeys的value都不是空的。
+// *
+// *  @param emptyValueForKeys    空值的key
+// *  @param notEmptyValueForKeys 非空值的key
+// *
+// *  @return YES／NO
+// */
+//-(BOOL)isEmpty:(NSArray*)emptyValueForKeys AndNotEmpty:(NSArray*)notEmptyValueForKeys;
+//@end
 
 
-typedef void (^shareSuccess)(OSMessage * message);
-typedef void (^shareFail)(OSMessage * message,NSError *error);
+typedef void (^shareSuccess)(F4ShareMessage * message);
+typedef void (^shareFail)(F4ShareMessage * message,NSError *error);
 typedef void (^authSuccess)(NSDictionary * message);
 typedef void (^authFail)(NSDictionary * message,NSError *error);
 typedef void (^paySuccess)(NSDictionary * message);
@@ -109,11 +110,11 @@ typedef enum : NSUInteger {
 
 +(NSMutableDictionary *)parseUrl:(NSURL*)url;
 
-+(void)setMessage:(OSMessage*)msg;
++(void)setMessage:(F4ShareMessage*)msg;
 
-+(OSMessage*)message;
++(F4ShareMessage*)message;
 
-+(BOOL)beginShare:(NSString*)platform Message:(OSMessage*)msg Success:(shareSuccess)success Fail:(shareFail)fail;
++(BOOL)beginShare:(NSString*)platform Message:(F4ShareMessage*)msg Success:(shareSuccess)success Fail:(shareFail)fail;
 +(BOOL)beginAuth:(NSString*)platform Success:(authSuccess)success Fail:(authFail)fail;
 
 +(NSString*)base64Encode:(NSString *)input;

@@ -64,7 +64,7 @@ static authFail authFailCallback;
 static paySuccess paySuccessCallback;
 static payFail payFailCallback;
 
-static OSMessage *message;
+static F4ShareMessage *message;
 +(shareSuccess)shareSuccessCallback{
     return shareSuccessCallback;
 }
@@ -98,11 +98,11 @@ static OSMessage *message;
 +(void)setReturnedData:(NSDictionary*)retData{
     returnedData=retData;
 }
-+(void)setMessage:(OSMessage*)msg{
++(void)setMessage:(F4ShareMessage*)msg{
     message=msg;
 }
-+(OSMessage*)message{
-    return message?:[[OSMessage alloc] init];
++(F4ShareMessage*)message{
+    return message?:[[F4ShareMessage alloc] init];
 }
 +(authSuccess)authSuccessCallback{
     return authSuccessCallback;
@@ -110,7 +110,7 @@ static OSMessage *message;
 +(authFail)authFailCallback{
     return authFailCallback;
 }
-+(BOOL)beginShare:(NSString*)platform Message:(OSMessage*)msg Success:(shareSuccess)success Fail:(shareFail)fail{
++(BOOL)beginShare:(NSString*)platform Message:(F4ShareMessage*)msg Success:(shareSuccess)success Fail:(shareFail)fail{
     if ([self keyFor:platform]) {
         message=msg;
         shareSuccessCallback=success;
@@ -250,29 +250,29 @@ static OSMessage *message;
 }
 @end
 
-@implementation OSMessage
--(BOOL)isEmpty:(NSArray*)emptyValueForKeys AndNotEmpty:(NSArray*)notEmptyValueForKeys{
-    @try {
-        if (emptyValueForKeys) {
-            for (NSString *key in emptyValueForKeys) {
-                if ([self valueForKeyPath:key]) {
-                    return NO;
-                }
-            }
-        }
-        if (notEmptyValueForKeys) {
-            for (NSString *key in notEmptyValueForKeys) {
-                if (![self valueForKey:key]) {
-                    return NO;
-                }
-            }
-        }
-        return YES;
-    }
-    @catch (NSException *exception) {
-        NSLog(@"isEmpty error:\n %@",exception);
-        return NO;
-    }
-}
-
-@end
+//@implementation OSMessage
+//-(BOOL)isEmpty:(NSArray*)emptyValueForKeys AndNotEmpty:(NSArray*)notEmptyValueForKeys{
+//    @try {
+//        if (emptyValueForKeys) {
+//            for (NSString *key in emptyValueForKeys) {
+//                if ([self valueForKeyPath:key]) {
+//                    return NO;
+//                }
+//            }
+//        }
+//        if (notEmptyValueForKeys) {
+//            for (NSString *key in notEmptyValueForKeys) {
+//                if (![self valueForKey:key]) {
+//                    return NO;
+//                }
+//            }
+//        }
+//        return YES;
+//    }
+//    @catch (NSException *exception) {
+//        NSLog(@"isEmpty error:\n %@",exception);
+//        return NO;
+//    }
+//}
+//
+//@end

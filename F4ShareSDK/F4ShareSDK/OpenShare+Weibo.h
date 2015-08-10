@@ -7,7 +7,7 @@
 //
 
 #import "OpenShare.h"
-
+#import "F4ShareMessage.h"
 @interface OpenShare (Weibo)
 
 /**
@@ -24,7 +24,7 @@
  *  @param success 分享成功回调
  *  @param fail    分享失败回调
  */
-+(void)shareToWeibo:(OSMessage*)msg Success:(shareSuccess)success Fail:(shareFail)fail;
++(void)shareToWeibo:(F4ShareMessage *)msg Success:(shareSuccess)success Fail:(shareFail)fail;
 
 /**
  *  微博登录OAuth
