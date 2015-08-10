@@ -54,6 +54,7 @@
     if ([application isEqualToString:@"com.tencent.xin"])
     {
         NSLog(@"微信好友反馈");
+        [WXApi handleOpenURL:url delegate:self];
         return YES;
     }
     else

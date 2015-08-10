@@ -49,6 +49,7 @@
     
     if ([application isEqualToString:@"com.tencent.xin"])
     {
+        [WXApi handleOpenURL:url delegate:self];
         NSLog(@"朋友圈反馈");
         return YES;
     }
@@ -72,5 +73,6 @@
     NSLog(@"TimeLine");
     [super shareToWeiXinPlatformWithScene:WeChatSceneTimeline message:msg result:result];
 }
+
 
 @end

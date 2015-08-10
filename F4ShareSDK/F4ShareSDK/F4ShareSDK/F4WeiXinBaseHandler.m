@@ -8,7 +8,7 @@
 
 #import "F4WeiXinBaseHandler.h"
 #import "F4HandleEngine.h"
-#import "WXApi.h"
+
 
 @interface F4WeiXinBaseHandler ()
 {
@@ -82,6 +82,7 @@
     req.scene = _scene;
     
     [WXApi sendReq:req];
+    
 }
 
 - (void)sendImageContentWithMessage:(F4ShareMessage *)msg
@@ -259,6 +260,7 @@
     NSLog(@"尚不支持此分享方式");
 }
 
+
 - (void)onResp:(BaseResp*)resp
 {
     if([resp isKindOfClass:[SendMessageToWXResp class]])
@@ -293,8 +295,12 @@
         {
             _shareResult(resp.errCode,stateString);
         }
-        
+        UIAlertView *alertView = [[UIAlertView alloc]initWithTitle:@"提示"
+                                                           message:stateString
+                                                          delegate:nil
+                                                 cancelButtonTitle:@"确定"
+                                                 otherButtonTitles:nil, nil];
+        [alertView show];
     }
 }
-
 @end

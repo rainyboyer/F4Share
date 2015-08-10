@@ -8,8 +8,8 @@
 
 #import <Foundation/Foundation.h>
 #import "F4HandleProtocol.h"
-
-@interface F4WeiXinBaseHandler : NSObject
+#import "WXApi.h"
+@interface F4WeiXinBaseHandler : NSObject<WXApiDelegate>
 
 typedef enum {
     WeChatSceneSession  = 0,
