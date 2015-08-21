@@ -117,7 +117,7 @@
         WXMediaMessage *message = [WXMediaMessage message];
         message.title = msg.title.length > 0? msg.title: @"分享";
         message.description = msg.desc.length > 0? msg.desc: @"分享详情";
-        [message setThumbImage:[UIImage imageWithData:[NSData dataWithContentsOfURL:[NSURL URLWithString:msg.imageUrl]]]];
+        [message setThumbData:[NSData dataWithContentsOfURL:[NSURL URLWithString:msg.thumbnailUrl]]];
         
         WXWebpageObject *ext = [WXWebpageObject object];
         ext.webpageUrl = msg.url;
