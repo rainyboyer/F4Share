@@ -105,7 +105,7 @@
     }
     else if (message.shareType == ShareNews)// 分享新闻
     {
-        if (message.mediaDataUrl == nil)
+        if (message.url == nil)
         {
              NSLog(@"您的分享网址尚未设置");
         }
