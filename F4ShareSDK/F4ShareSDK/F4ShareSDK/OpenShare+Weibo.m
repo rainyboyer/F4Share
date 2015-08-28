@@ -48,7 +48,7 @@ static NSString *schema=@"Weibo";
                           @"objectID" : @"identifier1",
                           @"thumbnailData":msg.thumbnailUrl?:msg.imageUrl,
                           @"title": msg.title,
-                          @"webpageUrl":msg.url
+                          @"webpageUrl":msg.url? msg.url: @""
                           }
                   
                   };
