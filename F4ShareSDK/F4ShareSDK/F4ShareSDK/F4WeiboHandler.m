@@ -20,8 +20,8 @@ static NSString *KStateString;
 
 @interface F4WeiboHandler()
 
-@property (nonatomic, assign) ShareResult shareResult;
-@property (nonatomic, assign) LoginResult loginResult;
+@property (nonatomic, copy) ShareResult shareResult;
+@property (nonatomic, copy) LoginResult loginResult;
 
 @end
 
