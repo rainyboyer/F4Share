@@ -16,8 +16,8 @@
 
 @interface F4QQHandler()
 @property (nonatomic, strong) TencentOAuth *tencent;
-@property (nonatomic, assign) ShareResult shareResult;
-@property (nonatomic, assign) LoginResult loginResult;
+@property (nonatomic, copy) ShareResult shareResult;
+@property (nonatomic, copy) LoginResult loginResult;
 @property (nonatomic, copy) NSString *stateString;
 @end
 @implementation F4QQHandler
