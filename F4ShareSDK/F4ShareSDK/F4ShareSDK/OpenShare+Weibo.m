@@ -44,11 +44,11 @@ static NSString *schema=@"Weibo";
                   @"__class" : @"WBMessageObject",
                   @"mediaObject":@{
                           @"__class" : @"WBWebpageObject",
-                          @"description": msg.desc?:msg.title,
+                          @"description": msg.desc?:msg.title?:@"",
                           @"objectID" : @"identifier1",
-                          @"thumbnailData":msg.thumbnailUrl?:msg.imageUrl,
-                          @"title": msg.title,
-                          @"webpageUrl":msg.url? msg.url: @""
+                          @"thumbnailData":msg.thumbnailUrl?:msg.imageUrl?:@"",
+                          @"title": msg.title?:@"",
+                          @"webpageUrl":msg.url?: @""
                           }
                   
                   };
