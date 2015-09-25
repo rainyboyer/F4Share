@@ -46,6 +46,8 @@ typedef void(^LoginResult)(F4ShareUserInfo *userInfo, NSInteger stateCode , NSSt
 @property (nonatomic, strong) NSString *imageUrl;
 // 分享缩略图URL
 @property (nonatomic, strong) NSString *thumbnailUrl;
+// 分享图片ImageData
+@property (nonatomic, strong) NSData *shareImageData;
 // 分享类型
 @property (nonatomic, assign) ShareType shareType;
 // 分享音乐类型
