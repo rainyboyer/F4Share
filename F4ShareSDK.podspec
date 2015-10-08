@@ -1,7 +1,7 @@
 
 Pod::Spec.new do |s|
   s.name         = "F4ShareSDK"
-  s.version      = "1.0.0"
+  s.version      = "1.0.1"
   s.summary      = "ShareSDK"
   s.homepage     = "http://www.baidu.com"
   s.license      = "MIT"
