@@ -10,13 +10,13 @@ Pod::Spec.new do |s|
   s.platform     = :ios, "7.0"
   s.source       = { :git => "https://github.com/rainyboyer/F4Share.git", :tag => "1.0.0" }
                                      
-  s.source_files  =  "F4ShareSDK/**/*.{h,m}"
+  s.source_files  =  "F4ShareSDK/F4ShareSDK/F4ShareSDK/**/*.{h,m}"
   #s.public_header_files = 'aaaLibrary/**/*.h'
   #s.resource_bundles = {
    # 'aaaLibrary' => ['aaaLibrary/*']
   #}                                       
 
-  s.resources = "Resources/*.png"
+  s.resources = "F4ShareSDK/Resources/*.png"
 
   s.frameworks = "Foundation","UIKit","MapKit","QuartzCore","CoreText","ImageIO","Security","CoreTelephony","CoreGraphics","SystemConfiguration"
    s.libraries = "iconv", "z","stdc++","sqlite3"
