@@ -58,20 +58,36 @@ static NSString *KStateString;
 
 - (BOOL)registerPlatformWithAppID:(NSString *)appID redirectURI:(NSString *)redirectURI
 {
-//    KRedirectURI = redirectURI;
-//    [WeiboSDK registerApp:appID];
     KRedirectURI = redirectURI;
-    [OpenShare set:@"Weibo" Keys:@{@"appKey":appID}];
+    [WeiboSDK registerApp:appID];
+//    KRedirectURI = redirectURI;
+//    [OpenShare set:@"Weibo" Keys:@{@"appKey":appID}];
     return YES;
 }
 
 - (void)shareToWeibo:(F4ShareMessage *)msg result:(ShareResult)shareResult
 {
-    [OpenShare shareToWeibo:msg Success:^(F4ShareMessage *message) {
-        //        ULog(@"分享到sina微博成功:\%@",message);
-    } Fail:^(F4ShareMessage *msg, NSError *error) {
-        //        ULog(@"分享到sina微博失败:\%@\n%@",message,error);
-    }];
+//    [OpenShare shareToWeibo:msg Success:^(F4ShareMessage *message) {
+//        //        ULog(@"分享到sina微博成功:\%@",message);
+//    } Fail:^(F4ShareMessage *msg, NSError *error) {
+//        //        ULog(@"分享到sina微博失败:\%@\n%@",message,error);
+//    }];
+    if (msg.shareType == ShareText)// text类型分享
+    {
+        [self sendTextContentWithMessage:msg ShareResult:shareResult];
+    }
+    else if (msg.shareType == ShareImage)// 图片类型分享
+    {
+        [self sendImageContentWithMessage:msg ShareResult:shareResult];
+    }
+    else if (msg.shareType == ShareNews)// 链接类型分享
+    {
+        [self sendNewsContentWithMessage:msg ShareResult:shareResult];
+    }
+    else
+    {
+        NSLog(@"新浪微博不支持此分享方式");
+    }
 }
 
 - (BOOL)userLoginResult:(LoginResult)result
