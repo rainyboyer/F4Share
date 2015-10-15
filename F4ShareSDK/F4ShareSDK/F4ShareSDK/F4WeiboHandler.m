@@ -167,9 +167,10 @@ static NSString *KStateString;
     authRequest.redirectURI = KRedirectURI;
     authRequest.scope = @"all";
     
-    WBSendMessageToWeiboRequest *request = [WBSendMessageToWeiboRequest requestWithMessage:message
-                                                                                  authInfo:authRequest
-                                                                              access_token:access_token];
+    WBSendMessageToWeiboRequest *request = [WBSendMessageToWeiboRequest requestWithMessage:message];
+//    WBSendMessageToWeiboRequest *request = [WBSendMessageToWeiboRequest requestWithMessage:message
+//                                                                                  authInfo:authRequest
+//                                                                              access_token:access_token];
     return request;
 }
 
@@ -211,11 +212,11 @@ static NSString *KStateString;
         case WeiboSDKResponseStatusCodeUserCancelInstall:
             KStateString = @"用户取消安装微博客户端";
             break;
-        case WeiboSDKResponseStatusCodePayFail:
-            KStateString = @"支付失败";
-            break;
-        case WeiboSDKResponseStatusCodeShareInSDKFailed:
-            KStateString = @"分享失败 详情见response UserInfo";
+//        case WeiboSDKResponseStatusCodePayFail:
+//            KStateString = @"支付失败";
+//            break;
+//        case WeiboSDKResponseStatusCodeShareInSDKFailed:
+//            KStateString = @"分享失败 详情见response UserInfo";
             break;
         case WeiboSDKResponseStatusCodeUnsupport:
             KStateString = @"不支持的请求";
