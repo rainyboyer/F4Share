@@ -21,8 +21,8 @@ Pod::Spec.new do |s|
   s.frameworks = "Foundation","UIKit","MapKit","QuartzCore","CoreText","ImageIO","Security","CoreTelephony","CoreGraphics","SystemConfiguration"
    s.libraries = "iconv", "z","stdc++","sqlite3"
    s.requires_arc = true
-
-   s.dependency 'WeiboSDK', '~> 3.0.1'
+  #'WeiboSDK', '~> 3.0.1'
+   s.dependency 'Weibo', '~> 2.4.2'
    s.dependency 'TencentOpenApiSDK', '~> 2.9.0'
    s.dependency 'iOSWeChatSdk', '~> 1.5.0'
 
