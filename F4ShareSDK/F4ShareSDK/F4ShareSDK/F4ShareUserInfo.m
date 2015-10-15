@@ -23,7 +23,8 @@
     userInfo.iconUrl  = dict[@"avatar_large"];
     userInfo.gender   = dict[@"gender"];
     userInfo.location = dict[@"location"];
-    userInfo.platformID = dict[@"idstr"];
+    userInfo.platformUserID = dict[@"idstr"];
+    userInfo.platformName = @"Weibo";
     return userInfo;
 }
 
@@ -36,11 +37,13 @@
  */
 + (instancetype)qqUserInfoWithJson:(NSDictionary *)dict
 {
+    NSLog(@"QQ dict: %@", dict);
     F4ShareUserInfo *userInfo = [[F4ShareUserInfo alloc] init];
     userInfo.nickName = dict[@"nickname"];
     userInfo.iconUrl  = dict[@"figureurl_qq_2"];
     userInfo.gender   = dict[@"gender"];
     userInfo.location = [NSString stringWithFormat:@"%@ %@",dict[@"city"],dict[@"province"]];
+    userInfo.platformName = @"QQ";
     return userInfo;
 }
 
