@@ -14,6 +14,7 @@
 @property (nonatomic, copy) NSString *gender;   /**< 性别 */
 @property (nonatomic, copy) NSString *iconUrl;  /**< 头像 */
 @property (nonatomic, copy) NSString *location; /**< 地区 */
+@property (nonatomic, copy) NSString *platformID; /**< 用户平台ID */
 
 /**
  *  传递微博授权登录的Json字典,返回用户信息模型

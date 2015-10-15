@@ -23,6 +23,7 @@
     userInfo.iconUrl  = dict[@"avatar_large"];
     userInfo.gender   = dict[@"gender"];
     userInfo.location = dict[@"location"];
+    userInfo.platformID = dict[@"idstr"];
     return userInfo;
 }
 

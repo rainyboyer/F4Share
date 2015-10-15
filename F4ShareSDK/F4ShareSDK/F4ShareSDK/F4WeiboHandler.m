@@ -198,13 +198,13 @@ static NSString *KStateString;
     switch (response.statusCode)
     {
         case WeiboSDKResponseStatusCodeSuccess:
-            KStateString = @"新浪微博分享成功";
+            KStateString = response.userInfo.allKeys.count > 0? @"新浪账号登录成功": @"新浪微博分享成功";
             break;
         case WeiboSDKResponseStatusCodeUserCancel:
-            KStateString = @"用户取消发送";
+            KStateString = response.userInfo.allKeys.count > 0? @"用户取消登录":@"用户取消发送";
             break;
         case WeiboSDKResponseStatusCodeSentFail:
-            KStateString = @"发送失败";
+            KStateString = response.userInfo.allKeys.count > 0? @"登录失败": @"发送失败";
             break;
         case WeiboSDKResponseStatusCodeAuthDeny:
             KStateString = @"授权失败";
