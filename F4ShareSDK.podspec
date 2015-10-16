@@ -25,5 +25,6 @@ Pod::Spec.new do |s|
    s.dependency 'Weibo', '~> 2.4.2'
    s.dependency 'TencentOpenApiSDK', '~> 2.9.0'
    s.dependency 'iOSWeChatSdk', '~> 1.5.0'
+   s.dependency 'SVProgressHUD', '~> 1.1.3'
 
 end
