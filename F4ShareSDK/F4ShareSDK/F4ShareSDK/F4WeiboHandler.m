@@ -13,6 +13,7 @@
 #import "WeiboSDK.h"
 #import "F4ShareHTTPTool.h"
 #import "OpenShare+Weibo.h"
+#import "SVProgressHUD.h"
 
 static NSString *KRedirectURI;
 static NSString *KAccess_token;
@@ -228,8 +229,7 @@ static NSString *KStateString;
             break;
     }
     
-    UIAlertView *tipAlertView = [[UIAlertView alloc]initWithTitle:@"提示" message:KStateString delegate:nil cancelButtonTitle:@"确定" otherButtonTitles:nil, nil];
-    [tipAlertView show];
+    [SVProgressHUD showInfoWithStatus:KStateString];
     
     NSInteger statusCode  = response.statusCode;
     
