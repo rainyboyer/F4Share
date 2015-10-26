@@ -143,17 +143,31 @@ static NSString *KStateString;
     
     if (msg.url)
     {
-        WBWebpageObject *webpage = [WBWebpageObject object];
-        webpage.objectID = @"identifier1";
-        webpage.title = msg.title.length > 0 ? msg.title : @"";
-        webpage.description = msg.desc.length > 0 ? msg.desc : @"";
-        webpage.thumbnailData = [NSData dataWithContentsOfURL:[NSURL URLWithString:msg.imageUrl]];
-        webpage.webpageUrl = msg.url;
-        message.mediaObject = webpage;
-        
-        WBSendMessageToWeiboRequest *request = [self requestMessage:message access_token:KAccess_token];
-        
-        [WeiboSDK sendRequest:request];
+        [SVProgressHUD showWithStatus:@"正在处理分享内容" maskType:SVProgressHUDMaskTypeBlack];
+        dispatch_async(dispatch_get_global_queue(0, 0), ^{
+            NSData *imageData = [NSData dataWithContentsOfURL:[NSURL URLWithString:msg.imageUrl]];
+            dispatch_async(dispatch_get_main_queue(), ^{
+                UIImage *tempImage = [UIImage imageWithData:imageData];
+                NSData *tempData = imageData;
+                while ([tempData length]/1000 > 32)
+                {
+                    tempData = UIImageJPEGRepresentation(tempImage, 0.9);
+                    tempImage = [UIImage imageWithData:tempData];
+                }
+                [SVProgressHUD dismiss];
+                WBWebpageObject *webpage = [WBWebpageObject object];
+                webpage.objectID = @"identifier1";
+                webpage.title = msg.title.length > 0 ? msg.title : @"";
+                webpage.description = msg.desc.length > 0 ? msg.desc : @"";
+                webpage.thumbnailData = tempData;
+                webpage.webpageUrl = msg.url;
+                message.mediaObject = webpage;
+                
+                WBSendMessageToWeiboRequest *request = [self requestMessage:message access_token:KAccess_token];
+                
+                [WeiboSDK sendRequest:request];
+            });
+        });
     }
     else
     {
