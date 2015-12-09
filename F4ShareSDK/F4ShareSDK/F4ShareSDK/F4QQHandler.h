@@ -8,7 +8,7 @@
 
 #import <Foundation/Foundation.h>
 #import "F4HandleProtocol.h"
-#import <TencentOAuth.h>
+#import <TencentOpenAPI/TencentOAuth.h>
 @interface F4QQHandler : NSObject<F4HandleProtocol, TencentSessionDelegate>
 
 - (void)load;
