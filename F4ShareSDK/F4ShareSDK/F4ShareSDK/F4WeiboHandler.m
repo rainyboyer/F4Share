@@ -11,7 +11,6 @@
 #import "F4ShareMessage.h"
 #import "F4ShareUserInfo.h"
 #import "WeiboSDK.h"
-#import "F4ShareHTTPTool.h"
 #import "OpenShare+Weibo.h"
 #import "SVProgressHUD.h"
 
@@ -246,29 +245,6 @@ static NSString *KStateString;
     [SVProgressHUD showInfoWithStatus:KStateString];
     
     NSInteger statusCode  = response.statusCode;
-    
-    if ([response isKindOfClass:WBAuthorizeResponse.class])
-    {
-        NSMutableDictionary *dict = [[NSMutableDictionary alloc] init];
-        dict[@"access_token"] = [(WBAuthorizeResponse *)response accessToken];
-        dict[@"uid"] = [(WBAuthorizeResponse *)response userID];
-    
-        [F4ShareHTTPTool GET:@"https://api.weibo.com/2/users/show.json" params:dict success:^(F4ShareUserInfo *userInfo) {
-            
-            if (_loginResult)
-            {
-                _loginResult(userInfo,statusCode,KStateString);
-            }
-            
-        } fail:^(NSError *error) {
-            
-            if (_loginResult)
-            {
-                _loginResult(nil,statusCode,KStateString);
-            }
-
-        }];
-    }
     
     if (_shareResult)
     {
