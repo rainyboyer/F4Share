@@ -26,5 +26,5 @@ Pod::Spec.new do |s|
   #s.dependency 'TencentOpenApiSDK', '~> 2.9.0'
    s.dependency 'iOSWeChatSdk', '~> 1.5.0'
    s.dependency 'SVProgressHUD', '~> 1.1.3'
-
+   s.dependency 'AFNetworking', '~> 3.0.4'
 end
