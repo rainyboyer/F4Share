@@ -1,14 +1,14 @@
 
 Pod::Spec.new do |s|
   s.name         = "F4ShareSDK"
-  s.version      = "1.0.1"
+  s.version      = "1.0.2"
   s.summary      = "ShareSDK"
   s.homepage     = "http://www.baidu.com"
   s.license      = "MIT"
-  s.author       = { "Kratos" => "461400226@qq.com" }
+  s.author       = { "Pen" => "pengjunhua2005@21cn.com" }
 
   s.platform     = :ios, "7.0"
-  s.source       = { :git => "https://github.com/rainyboyer/F4Share.git", :tag => "1.0.1" }
+  s.source       = { :git => "https://github.com/rainyboyer/F4Share.git", :tag => "1.0.2" }
                                      
   s.source_files  =  "F4ShareSDK/**/*.{h,m}"
   #s.public_header_files = 'aaaLibrary/**/*.h'
@@ -23,7 +23,7 @@ Pod::Spec.new do |s|
    s.requires_arc = true
   #'WeiboSDK', '~> 3.0.1'
    s.dependency 'Weibo', '~> 2.4.2'
-   s.dependency 'TencentOpenApiSDK', '~> 2.9.0'
+  #s.dependency 'TencentOpenApiSDK', '~> 2.9.0'
    s.dependency 'iOSWeChatSdk', '~> 1.5.0'
    s.dependency 'SVProgressHUD', '~> 1.1.3'
 
