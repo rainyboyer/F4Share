@@ -28,5 +28,5 @@ Pod::Spec.new do |s|
    s.dependency 'SVProgressHUD', '~> 1.1.3'
    s.dependency 'AFNetworking', '~> 3.0.4'
 
-   s.ios.vendored_frameworks = 'TencentOpenAPI.framework'
+   s.ios.vendored_frameworks = 'F4ShareSDK/**/*.framework'
 end
