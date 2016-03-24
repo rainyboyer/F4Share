@@ -25,8 +25,8 @@ Pod::Spec.new do |s|
    s.dependency 'Weibo', '~> 2.4.2'
   #s.dependency 'TencentOpenApiSDK', '~> 2.9.0'
    s.dependency 'iOSWeChatSdk', '~> 1.5.0'
-   s.dependency 'SVProgressHUD', '~> 1.1.3'
-   s.dependency 'AFNetworking', '~> 3.0.4'
+   s.dependency 'SVProgressHUD', '= 2.0'
+   s.dependency 'AFNetworking', '= 3.0.0-beta.2'
 
    s.ios.vendored_frameworks = 'F4ShareSDK/**/*.framework'
 end
