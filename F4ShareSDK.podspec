@@ -16,7 +16,7 @@ Pod::Spec.new do |s|
     'TencentOpenApi_IOS_Bundle' => ['F4ShareSDK/**/*.bundle']
   }                                       
 
-  s.resources = "Resources/*.png"
+  s.resources = "F4ShareSDK/**/*.png"
 
   s.frameworks = "Foundation","UIKit","MapKit","QuartzCore","CoreText","ImageIO","Security","CoreTelephony","CoreGraphics","SystemConfiguration"
   s.libraries = "iconv", "z","stdc++","sqlite3"
