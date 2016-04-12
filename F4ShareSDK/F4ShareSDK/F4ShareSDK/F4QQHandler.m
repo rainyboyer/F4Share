@@ -177,10 +177,14 @@
 #pragma mark - TencentLogin
 - (BOOL)userLoginResult:(LoginResult)result
 {
-    NSArray *permissions = @[@"get_user_info", @"get_simple_userinfo", @"add_t"];
-    [_tencent authorize:permissions inSafari:NO];
-    _loginResult = result;
-    
+	NSArray* permissions = [NSArray arrayWithObjects:
+							kOPEN_PERMISSION_GET_USER_INFO,
+							kOPEN_PERMISSION_GET_SIMPLE_USER_INFO,
+							nil];
+	
+	[_tencent authorize:permissions inSafari:NO];
+	_loginResult = result;
+	
     return YES;
 }
 
@@ -245,8 +249,10 @@
 #pragma mark - TencentLoginDelegate
 - (void)getUserInfoResponse:(APIResponse *)response
 {
-    NSLog(@"response: %@", response.jsonResponse);
     F4ShareUserInfo *userInfo = [F4ShareUserInfo qqUserInfoWithJson:response.jsonResponse];
+	if ([_tencent openId].length) {
+		userInfo.platformUserID = [_tencent openId];
+	}
     _loginResult(userInfo, response.detailRetCode,_stateString);
 }
 @end
