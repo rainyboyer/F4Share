@@ -57,7 +57,7 @@ singleton_implementation(F4HandleEngine);
     _mapping[key] = platform;
 }
 
-- (BOOL)registerWith:(SharePlatform)platform appID:(NSString *)appID redirectURI:(NSString *)redirectURI
+- (BOOL)registerWith:(SharePlatform)platform appID:(NSString *)appID redirectURI:(NSString *)redirectURI security:(NSString *)security
 {
     NSNumber *key = [NSNumber numberWithInt:platform];
     id <F4HandleProtocol> handler = _mapping[key];
@@ -66,7 +66,7 @@ singleton_implementation(F4HandleEngine);
         return NO;
     }
     
-    return [handler registerPlatformWithAppID:appID redirectURI:redirectURI];
+    return [handler registerPlatformWithAppID:appID redirectURI:redirectURI security:security];
 }
 
 - (NSString *)getPlatformNameWith:(SharePlatform)platform

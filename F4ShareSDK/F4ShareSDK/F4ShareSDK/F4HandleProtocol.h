@@ -24,8 +24,8 @@
 // 处理回调
 - (BOOL)handleWithSourceApplication:(NSString *)application url:(NSURL *)url;
 
-// 设置微信平台
-- (BOOL)registerPlatformWithAppID:(NSString *)appID redirectURI:(NSString *)redirectURI;
+// 设置第三方平台
+- (BOOL)registerPlatformWithAppID:(NSString *)appID redirectURI:(NSString *)redirectURI security:(NSString *)security;
 
 /**<获取平台名字*/
 - (NSString *)getPlatformName;

@@ -33,6 +33,14 @@
  *  @return 用户信息模型
  */
 + (instancetype)qqUserInfoWithJson:(NSDictionary *)dict;
+/**
+ *  传递WeChat授权登录的Json字典,返回用户信息模型
+ *
+ *  @param dict Json字典
+ *
+ *  @return 用户信息模型
+ */
++ (instancetype)weChatUserInfoWithJson:(NSDictionary *)dict;
 
 
 @end

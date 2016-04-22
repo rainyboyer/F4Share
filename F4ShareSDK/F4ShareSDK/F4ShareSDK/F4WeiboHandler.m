@@ -57,7 +57,7 @@ static NSString *KStateString;
     return @"img_icon_sina";
 }
 
-- (BOOL)registerPlatformWithAppID:(NSString *)appID redirectURI:(NSString *)redirectURI
+- (BOOL)registerPlatformWithAppID:(NSString *)appID redirectURI:(NSString *)redirectURI security:(NSString *)security
 {
     KRedirectURI = redirectURI;
     [WeiboSDK registerApp:appID];

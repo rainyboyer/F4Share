@@ -47,4 +47,29 @@
     return userInfo;
 }
 
+/**
+ *  传递WeChat授权登录的Json字典,返回用户信息模型
+ *
+ *  @param dict Json字典
+ *
+ *  @return 用户信息模型
+ */
++ (instancetype)weChatUserInfoWithJson:(NSDictionary *)dict
+{
+    F4ShareUserInfo *userInfo = [[F4ShareUserInfo alloc] init];
+    userInfo.nickName = dict[@"nickname"];
+    userInfo.iconUrl  = dict[@"headimgurl"];
+    if ([dict[@"sex"] isEqualToString:@"1"])
+    {
+        userInfo.gender = @"男";
+    }
+    else if ([dict[@"sex"] isEqualToString:@"2"])
+    {
+        userInfo.gender = @"女";
+    }
+    userInfo.location = [NSString stringWithFormat:@"%@ %@",dict[@"city"],dict[@"province"]];
+    userInfo.platformName = @"WeChat";
+    return userInfo;
+}
+
 @end

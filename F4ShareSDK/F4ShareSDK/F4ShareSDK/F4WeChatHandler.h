@@ -12,5 +12,4 @@
 @interface F4WeChatHandler : F4WeiXinBaseHandler<F4HandleProtocol>
 
 - (void)load;
-
 @end

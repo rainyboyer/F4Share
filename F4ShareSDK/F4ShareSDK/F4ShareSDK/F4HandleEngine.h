@@ -24,7 +24,7 @@ singleton_interface(F4HandleEngine);
 - (BOOL)loginWith:(SharePlatform)platform result:(LoginResult)result;
 
 // 设置第三方平台
-- (BOOL)registerWith:(SharePlatform)platform appID:(NSString *)appID redirectURI:(NSString *)URI;
+- (BOOL)registerWith:(SharePlatform)platform appID:(NSString *)appID redirectURI:(NSString *)URI security:(NSString *)security;
 
 /**<获取平台名字*/
 - (NSString *)getPlatformNameWith:(SharePlatform)platform;

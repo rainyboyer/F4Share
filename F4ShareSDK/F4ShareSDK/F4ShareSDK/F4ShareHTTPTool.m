@@ -37,6 +37,4 @@ singleton_implementation(F4ShareHTTPTool)
         }
     }];
 }
-
-
 @end

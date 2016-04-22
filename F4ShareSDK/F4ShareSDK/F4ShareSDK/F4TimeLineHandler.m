@@ -39,7 +39,7 @@
     return @"img_icon_timeline";
 }
 
-- (BOOL)registerPlatformWithAppID:(NSString *)appID redirectURI:(NSString *)redirectURI
+- (BOOL)registerPlatformWithAppID:(NSString *)appID redirectURI:(NSString *)redirectURI security:(NSString *)security
 {
     return [WXApi registerApp:appID];
 }
@@ -73,6 +73,5 @@
     NSLog(@"TimeLine");
     [super shareToWeiXinPlatformWithScene:WeChatSceneTimeline message:msg result:result];
 }
-
 
 @end

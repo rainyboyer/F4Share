@@ -26,5 +26,4 @@ singleton_interface(F4ShareHTTPTool)
  */
 + (void)GET:(NSString *)url params:(NSDictionary *)params success:(SuccessBlock)success fail:(FailBlock)fail;
 
-
 @end

@@ -189,7 +189,7 @@
 }
 
 #pragma mark - TencentRegister
-- (BOOL)registerPlatformWithAppID:(NSString *)appID redirectURI:(NSString *)redirectURI
+- (BOOL)registerPlatformWithAppID:(NSString *)appID redirectURI:(NSString *)redirectURI security:(NSString *)security
 {
     self.tencent = [[TencentOAuth alloc]initWithAppId:appID andDelegate:self];
     _tencent.redirectURI = redirectURI;
