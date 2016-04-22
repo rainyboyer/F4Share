@@ -56,16 +56,16 @@
  */
 + (instancetype)weChatUserInfoWithJson:(NSDictionary *)dict
 {
+	NSLog(@"weChat dict: %@", dict);
     F4ShareUserInfo *userInfo = [[F4ShareUserInfo alloc] init];
     userInfo.nickName = dict[@"nickname"];
     userInfo.iconUrl  = dict[@"headimgurl"];
-    if ([dict[@"sex"] isEqualToString:@"1"])
-    {
-        userInfo.gender = @"男";
-    }
-    else if ([dict[@"sex"] isEqualToString:@"2"])
-    {
-        userInfo.gender = @"女";
+	userInfo.platformUserID = dict[@"openid"];
+	long sex = [dict[@"sex"] longValue];
+    if (sex == 1) {
+        userInfo.gender = @"male";
+    } else {
+        userInfo.gender = @"femal";
     }
     userInfo.location = [NSString stringWithFormat:@"%@ %@",dict[@"city"],dict[@"province"]];
     userInfo.platformName = @"WeChat";

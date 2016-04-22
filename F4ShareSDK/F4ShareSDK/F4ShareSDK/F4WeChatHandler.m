@@ -192,7 +192,7 @@ typedef enum
     }
     else if (_currentRequestCode == UserInfo)
     {
-        F4ShareUserInfo *userInfo = [F4ShareUserInfo qqUserInfoWithJson:dic];
+        F4ShareUserInfo *userInfo = [F4ShareUserInfo weChatUserInfoWithJson:dic];
         _loginResult(userInfo, 0, @"成功");
     }
     else
